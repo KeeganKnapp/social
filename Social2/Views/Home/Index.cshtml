@@ -3,16 +3,22 @@
 *@
 @{
 }
-
+@model string
 <html>
-    <head>
+<head>
 
-    </head>
-    <body>
-        <form action="/" method="post">
-            <label>Username: </label><input type="text" name="username"/> <br />
-            <label>Password: </label><input type="password" name="password" /> <br />
-            <button>Create User</button>
-        </form>
-    </body>
+</head>
+<body>
+    <form action="/" method="post">
+        <label>Username: </label><input type="text" name="username" /> <br />
+        <label>Password: </label><input type="password" name="password" /> <br />
+        <button>Create User</button>
+    </form>
+    <div>
+        @if (!string.IsNullOrEmpty(Model))
+        {
+            <span>@Model</span>
+        }
+    </div>
+</body>
 </html>

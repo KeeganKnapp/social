@@ -10,7 +10,10 @@
     @foreach(var user in Model)
     {
     <li>
-        @user.UserName
+        <a href="/home/user?id=@user.Id">
+            @user.UserName 
+        </a>
+        
     </li>
     }
 </ul>

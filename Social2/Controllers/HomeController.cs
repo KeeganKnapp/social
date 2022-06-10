@@ -7,6 +7,7 @@ namespace Social2.Controllers
         private static List<User> users = new List<User>();
         public ViewResult Index()
         {
+            string errormessage = "";
             if (Request.Method.ToUpper() == "POST")
             {
                 string username = Request.Form["username"];
@@ -14,6 +15,7 @@ namespace Social2.Controllers
                 User user = new User();
                 user.UserName = username;
                 user.Password = password;
+                /*
                 int maxId = -1;
                 foreach (var existinguser in users)
                 {
@@ -22,11 +24,44 @@ namespace Social2.Controllers
                         maxId = existinguser.Id;
                     }
                 }
+               
                 user.Id = maxId + 1;
-                users.Add(user);
+                 */
+                if (users.Count == 0)
+                {
+                    user.Id = 1;
+                }
+                else
+                {
+                    user.Id = users.Max(u => u.Id) + 1;
+                }
+                
+                /*
+                bool usernameexists = false;
+                
+                foreach (var currentuser in users)
+                {
+                    if (currentuser.UserName == user.UserName)
+                    {
+                        usernameexists = true;
+                    }
+                }
+
+                if (!usernameexists)
+                */
+                if(!users.Any(u => u.UserName == user.UserName))
+                {
+                    users.Add(user);
+                }
+                else
+                {
+                    errormessage = "This username already exists";
+                }
+
             }
-     
-            return View();
+
+
+            return View((object) errormessage);
 
         }
 
