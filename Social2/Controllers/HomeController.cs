@@ -14,6 +14,15 @@ namespace Social2.Controllers
                 User user = new User();
                 user.UserName = username;
                 user.Password = password;
+                int maxId = -1;
+                foreach (var existinguser in users)
+                {
+                    if(existinguser.Id > maxId)
+                    {
+                        maxId = existinguser.Id;
+                    }
+                }
+                user.Id = maxId + 1;
                 users.Add(user);
             }
      
