@@ -35,7 +35,7 @@ namespace Social2.Controllers
                 {
                     user.Id = users.Max(u => u.Id) + 1;
                 }
-                
+
                 /*
                 bool usernameexists = false;
                 
@@ -49,7 +49,7 @@ namespace Social2.Controllers
 
                 if (!usernameexists)
                 */
-                if(!users.Any(u => u.UserName == user.UserName))
+                if (!users.Any(u => u.UserName == user.UserName))
                 {
                     users.Add(user);
                 }
@@ -61,14 +61,27 @@ namespace Social2.Controllers
             }
 
 
-            return View((object) errormessage);
+            return View((object)errormessage);
 
         }
 
         public ViewResult Users()
         {
-            
+
             return View(users);
+        }
+
+        public ViewResult User()
+        {
+            int Id = int.Parse(Request.Query["Id"]);
+            foreach (var user in users)
+            {
+                if (user.Id == Id)
+                {
+                    return View(user);
+                }
+            }
+            return View(null);
         }
     }
 }
